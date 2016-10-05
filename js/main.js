@@ -59,6 +59,7 @@ cartIconItem3.addEventListener('click', function()
 	updateCart( cartIconItem3, 2);
 });
 
+// Specific event listener for minimizing the cart
 minimizeCart.addEventListener('click', function()
 {
 	// Is the cart minimized?
