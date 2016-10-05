@@ -1,0 +1,370 @@
+@import '_variables.scss';
+@import '_animations.scss';
+
+@mixin centerPositionedElement($elementWidth) {
+	margin-left: -($elementWidth / 2);
+	left: 50%;
+}
+
+@mixin squareElement($size) {
+	width: $size;
+	height: $size;
+}
+
+@mixin addContainer() {
+	width: 990px;
+	min-width: 270px;
+	margin: 0 auto;
+}
+
+
+
+// --------------------------------------------------
+// Global Styles
+// --------------------------------------------------
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: $main-bg-color;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	line-height: 1.4em;
+}
+
+img {
+	max-width: 100%;
+}
+
+.container {
+	@include addContainer();
+}
+
+.column {
+	width: 33%;
+	color: $blue-color;
+	padding: 10px;
+	display: inline-block;
+}
+
+.carrot {
+    position: absolute;
+    bottom: -10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid $main-bg-color;
+    @include squareElement(0px);
+    @include centerPositionedElement(20px);
+}
+
+.hide-element {
+	display: none;
+}
+
+
+
+// --------------------------------------------------
+// Item Styles
+// --------------------------------------------------
+.item {
+	width: 100%;
+	border: $border-size solid $blue-color;
+	position: relative;
+
+	.details {
+		max-width: 500px;
+		margin: 0 auto;
+	}
+}
+
+
+
+// --------------------------------------------------
+// Preview Styles
+// --------------------------------------------------
+.preview {
+	width: 100%;
+	border-bottom: $border-size solid $blue-color;
+	position: relative;
+
+	img {
+		width: 470px;
+		margin: 0 auto;
+		display: block;
+		transform-style: preserve-3d;
+  		transition: all 1.0s linear;
+		padding: 20px;
+
+		 &.face {
+			backface-visibility: hidden;
+		}
+
+		&.back {
+			transform: rotateY(180deg);
+			position: absolute;
+	  		top: 0;
+	  		left: 0;
+	  		z-index: -999;
+		}
+	}
+
+	.flip {
+		border-left: $border-size solid $blue-color;
+		border-bottom: $border-size solid $blue-color;
+		padding: 3px;
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		&:hover {
+			background-color: $blue-color;
+			color: $main-bg-color;
+		}
+	}
+
+	&:hover {
+		img {
+			&.face {
+				transform: rotateY(180deg);
+			}
+
+			&.back {
+				transform: rotateY(0deg);
+			}
+		}
+	} 
+}
+
+
+
+// --------------------------------------------------
+// Icon Styles
+// --------------------------------------------------
+.icon {
+	width: 20%;
+	display: inline-block;
+	text-align: center;
+	padding: 13px 0;
+	border-right: $border-size solid $blue-color;
+
+	&:hover, 
+	&.active {
+		background-color: $blue-color;
+		color: $main-bg-color;
+	}
+
+	&:last-child {
+		border: none;
+	}
+
+	&.size {
+		padding: 10px 0;
+		position: relative;
+
+		.size-menu {
+			width: 118%;
+		    background-color: $main-bg-color;
+		    padding: 25%;
+		    border: $border-size solid $blue-color;
+		    position: absolute;
+		    bottom: 42px;
+		    display: none;
+		    z-index: 999;
+		    animation: slideUp 0.3s;
+		    @include centerPositionedElement(118%);
+
+		    .size-option {
+				margin: 0 auto;
+				display: block;
+
+				&.extra-large {
+					width: 100%;
+				}
+
+				&.large {
+					width: 90%;
+				}
+
+				&.medium {
+					width: 80%;
+				}
+
+				&.small {
+					width: 70%;
+				}
+			}
+		}
+
+		&:hover {
+			.size-menu {
+		    	animation: slideDown 0.3s;
+		    	display: unset;
+			}
+		}
+	}
+
+	&.color {
+	    position: relative;
+	    padding: 21px 0;
+	    vertical-align: bottom;
+
+	    .selected {
+		    padding: 5px 0;
+		    position: absolute;
+		    top: 12px;
+		    @include centerPositionedElement(18px);
+		    @include squareElement(18px);
+
+		    &.blue {
+				background-color: $shirt-color-blue;
+			}
+
+			&.pink {
+				background-color: $shirt-color-pink;
+			}
+
+			&.orange {
+				background-color: $shirt-color-orange;
+			}
+
+			&.green {
+				background-color: $shirt-color-green;
+			}
+		}
+
+		.color-menu {
+			width: 145%;
+		    background-color: $main-bg-color;
+		    padding: 6%;
+		    border: $border-size solid $blue-color;
+		    position: absolute;
+		    bottom: 42px;
+			display: none;
+		    z-index: 999;
+		    animation: slideUp 0.3s;
+		    @include centerPositionedElement(145%);
+
+		    .color-option {
+				width: 38%;
+			    padding-bottom: 38%;
+			    margin: 6%;
+			    float: left;
+
+			    &.one {
+					background-color: $blue-color;
+				}
+
+				&.two {
+					background-color: $shirt-color-pink;
+				}
+
+				&.three {
+					background-color: $shirt-color-orange;
+				}
+
+				&.four {
+					background-color: $shirt-color-green;
+				}
+			}
+		}
+
+		&:hover {
+			.color-menu {
+				display: unset;
+				animation: slideDown 0.3s;
+			}
+
+			.selected {
+				border: $border-size solid $main-bg-color;
+			}
+		}
+	}
+}
+
+
+
+// --------------------------------------------------
+// Cart
+// --------------------------------------------------
+.item-cart {
+	min-width: 300px;
+	padding: 10px 40px;
+	background-color: $blue-color;
+	color: $main-bg-color;
+	position: absolute;
+	right: 20px;
+	bottom: 0;
+
+	h3 {
+		font-size: 1.4em;
+		font-weight: bold;
+	}
+
+	.items {
+		padding: 15px 0;
+		border-top: 1px solid rgba($main-bg-color, .1);
+		border-bottom: 1px solid rgba($main-bg-color, .1);
+		margin: 15px 0;
+	}
+
+	#minimizeCart,
+	.items span,
+	.totals span {
+		float: right;
+	}
+}
+
+
+
+// --------------------------------------------------
+// Details Styles
+// --------------------------------------------------
+.details {
+	padding: 10px 0;
+	font-size: 1.2em;
+
+	p {
+		display: inline-block;
+
+		&.name {
+			width: 79%;
+			padding-left: 5px;
+			font-weight: 300;
+		}
+
+		&.price {
+			width: 19%;
+			text-align: right;
+			font-weight: 700;
+		}
+	}
+}
+
+
+
+// --------------------------------------------------
+// Responsive Styles
+// --------------------------------------------------
+@media screen and (max-width: 990px) {
+	.container {
+		width: 100%;
+	}
+
+	.column {
+		width: 100%;
+	}
+}
