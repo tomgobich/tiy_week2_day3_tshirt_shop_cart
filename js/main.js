@@ -44,22 +44,25 @@ itemCart.classList.add('hide-element');
 
 
 // Event listeners
-cartIconItem1.addEventListener('click', function() {
+cartIconItem1.addEventListener('click', function()
+{
 	updateCart( cartIconItem1, 0);
 });
 
-cartIconItem2.addEventListener('click', function() {
+cartIconItem2.addEventListener('click', function()
+{
 	updateCart( cartIconItem2, 1);
 });
 
-cartIconItem3.addEventListener('click', function() {
+cartIconItem3.addEventListener('click', function()
+{
 	updateCart( cartIconItem3, 2);
 });
 
-minimizeCart.addEventListener('click', function() {
-
+minimizeCart.addEventListener('click', function()
+{
 	// Is the cart minimized?
-	if( !minimizeCartStatus ) 
+	if( !minimizeCartStatus )
 	{
 		// No, minimize it
 		itemList.classList.add('hide-element');
@@ -75,7 +78,6 @@ minimizeCart.addEventListener('click', function() {
 		minimizeCart.innerHTML = "-";
 		minimizeCartStatus = false;
 	}
-
 });
 
 
@@ -83,8 +85,8 @@ minimizeCart.addEventListener('click', function() {
 // --------------------------------------------------
 // Update Cart - All Cart Functionality Starts Here
 // --------------------------------------------------	
-function updateCart( itemId, itemIndex ) {
-
+function updateCart( itemId, itemIndex )
+{
 	// Toggles item's status in cart
 	setCartStatus( itemId, itemIndex );
 
@@ -93,7 +95,6 @@ function updateCart( itemId, itemIndex ) {
 
 	// Toggles carts visibility if all items removed or item added
 	displayCart( itemInCart );
-
 }
 
 
@@ -101,8 +102,8 @@ function updateCart( itemId, itemIndex ) {
 // --------------------------------------------------
 // Toggle Item's Status in Cart
 // --------------------------------------------------	
-function setCartStatus( itemId, itemIndex ) {
-
+function setCartStatus( itemId, itemIndex )
+{
 	// Was the item previously in the cart?
 	if( !items[itemIndex].inCart ) 
 	{
@@ -116,7 +117,6 @@ function setCartStatus( itemId, itemIndex ) {
 		itemId.classList.remove('active');
 		items[itemIndex].inCart = false;
 	}
-
 }
 
 
@@ -124,19 +124,21 @@ function setCartStatus( itemId, itemIndex ) {
 // --------------------------------------------------
 // Edit Cart Items & Totals
 // --------------------------------------------------	
-function editCart() {
-
+function editCart()
+{
 	var itemInCart = false;
 	var total = 0;
 	var tax = 0;
 	var amountDue = 0;
 	var cartItemCount = 0;
 	var itemsLength = items.length;
-	itemList.innerHTML = "";			// Clear item list
+	
+	// Clear item list
+	itemList.innerHTML = "";
 
 	// Loop through items array
-	for(var i = 0; i < itemsLength; i++) {
-
+	for(var i = 0; i < itemsLength; i++) 
+	{
 		// Is the item in the cart?
 		if( items[i].inCart ) 
 		{
@@ -153,7 +155,6 @@ function editCart() {
 			// Mark the cart as having at least one item in it
 			itemInCart = true;
 		}
-
 	}
 
 	// Cart total calculations
@@ -163,7 +164,6 @@ function editCart() {
 	tax 		= tax.toFixed(2);
 	amountDue	= amountDue.toFixed(2);
 
-
 	// Display cart totals
 	cartTotal.innerHTML 	= '$ ' 	+ total;
 	taxTotal.innerHTML 		= '$ ' 	+ tax;
@@ -172,7 +172,6 @@ function editCart() {
 
 	// Return whether at least one item is in the cart
 	return itemInCart;
-
 }
 
 
@@ -180,8 +179,8 @@ function editCart() {
 // --------------------------------------------------
 // Toggle Cart Visibility | 0 = hidden, 1+ = show
 // --------------------------------------------------
-function displayCart( itemInCart ) {
-
+function displayCart( itemInCart )
+{
 	// Are there any items in the cart?
 	if( !itemInCart )
 	{
@@ -193,5 +192,4 @@ function displayCart( itemInCart ) {
 		// Yes, show the cart
 		itemCart.classList.remove('hide-element');
 	}
-
 }
