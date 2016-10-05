@@ -1,17 +1,15 @@
-# Tailored T-Shirt Shop - SASS + Gulp Refactor
-##### The Iron Yard - Week 2, Day 1
+# Tailored T-Shirt Shop - With Cart Functionality
+##### The Iron Yard - Week 2, Day 3
 
-The purpose of this assignment was to gain experience working with SASS and refactoring. We were to take our prior assignment and refactor the CSS into SASS while utilizing the many great features that come packed into SASS like variables, mixins, nesting, and imports.
+The purpose of this assignment was to gain experience working with JavaScript and selecting HTML elements via the DOM. For this assignment we were to add cart functionality to the previous Tailored T-Shirt Shop project. 
 
-As an addition to the above assignment, which can be found on the refactorSass branch of this repo, I've also refactored it to include a Gulp supported version.
-
-#### [View Live Preview](https://tomgobich.github.io/tiy_week1_day4_tshirt_shop/)
-Note: This live preview is for the master branch, which uses the prior assignments code.
+#### [View Live Preview](https://tomgobich.github.io/tiy_week2_day3_tshirt_shop_cart/)
 
 ### Tech Used
 
 * HTML
 * CSS / SASS
+* JavaScript
 * Gulp
 
 
