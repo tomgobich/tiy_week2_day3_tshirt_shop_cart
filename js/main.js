@@ -17,7 +17,6 @@ var grandTotal		= document.getElementById('grandTotal');
 
 
 
-
 // Array of shop items
 var items = [
 	{
@@ -76,6 +75,7 @@ minimizeCart.addEventListener('click', function() {
 		minimizeCart.innerHTML = "-";
 		minimizeCartStatus = false;
 	}
+	
 });
 
 
