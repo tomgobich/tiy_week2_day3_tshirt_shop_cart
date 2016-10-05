@@ -75,7 +75,7 @@ minimizeCart.addEventListener('click', function() {
 		minimizeCart.innerHTML = "-";
 		minimizeCartStatus = false;
 	}
-	
+
 });
 
 
@@ -179,11 +179,11 @@ function editCart() {
 
 // --------------------------------------------------
 // Toggle Cart Visibility | 0 = hidden, 1+ = show
-// --------------------------------------------------	
+// --------------------------------------------------
 function displayCart( itemInCart ) {
 
 	// Are there any items in the cart?
-	if( !itemInCart ) 
+	if( !itemInCart )
 	{
 		// No, don't show the cart
 		itemCart.classList.add('hide-element');
