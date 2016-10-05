@@ -62,7 +62,7 @@ cartIconItem3.addEventListener('click', function()
 minimizeCart.addEventListener('click', function()
 {
 	// Is the cart minimized?
-	if( !minimizeCartStatus )
+	if(!minimizeCartStatus)
 	{
 		// No, minimize it
 		itemList.classList.add('hide-element');
@@ -85,16 +85,16 @@ minimizeCart.addEventListener('click', function()
 // --------------------------------------------------
 // Update Cart - All Cart Functionality Starts Here
 // --------------------------------------------------	
-function updateCart( itemId, itemIndex )
+function updateCart(itemId, itemIndex)
 {
 	// Toggles item's status in cart
-	setCartStatus( itemId, itemIndex );
+	setCartStatus(itemId, itemIndex);
 
 	// Displays items and total in cart box
 	var itemInCart = editCart();
 
 	// Toggles carts visibility if all items removed or item added
-	displayCart( itemInCart );
+	displayCart(itemInCart);
 }
 
 
@@ -102,10 +102,10 @@ function updateCart( itemId, itemIndex )
 // --------------------------------------------------
 // Toggle Item's Status in Cart
 // --------------------------------------------------	
-function setCartStatus( itemId, itemIndex )
+function setCartStatus(itemId, itemIndex)
 {
 	// Was the item previously in the cart?
-	if( !items[itemIndex].inCart ) 
+	if(!items[itemIndex].inCart) 
 	{
 		// No, add item to cart
 		itemId.classList.add('active');
@@ -140,7 +140,7 @@ function editCart()
 	for(var i = 0; i < itemsLength; i++) 
 	{
 		// Is the item in the cart?
-		if( items[i].inCart ) 
+		if(items[i].inCart) 
 		{
 			// Yes, display item in cart item list
 			var item = "<p>" + items[i].name + "<span>$ " + items[i].price + "</span></p>";
@@ -179,10 +179,10 @@ function editCart()
 // --------------------------------------------------
 // Toggle Cart Visibility | 0 = hidden, 1+ = show
 // --------------------------------------------------
-function displayCart( itemInCart )
+function displayCart(itemInCart)
 {
 	// Are there any items in the cart?
-	if( !itemInCart )
+	if(!itemInCart)
 	{
 		// No, don't show the cart
 		itemCart.classList.add('hide-element');
