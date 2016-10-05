@@ -11,12 +11,6 @@
 	height: $size;
 }
 
-@mixin addContainer() {
-	width: 990px;
-	min-width: 270px;
-	margin: 0 auto;
-}
-
 
 
 // --------------------------------------------------
@@ -51,7 +45,9 @@ img {
 }
 
 .container {
-	@include addContainer();
+	width: 990px;
+	min-width: 270px;
+	margin: 0 auto 60px;
 }
 
 .column {
@@ -82,13 +78,14 @@ img {
 // --------------------------------------------------
 .item {
 	width: 100%;
+	max-width: 480px;
 	border: $border-size solid $blue-color;
 	position: relative;
+}
 
-	.details {
-		max-width: 500px;
-		margin: 0 auto;
-	}
+.details {
+	max-width: 480px;
+	margin: 0 auto;
 }
 
 
@@ -298,39 +295,6 @@ img {
 
 
 // --------------------------------------------------
-// Cart
-// --------------------------------------------------
-.item-cart {
-	min-width: 300px;
-	padding: 10px 40px;
-	background-color: $blue-color;
-	color: $main-bg-color;
-	position: absolute;
-	right: 20px;
-	bottom: 0;
-
-	h3 {
-		font-size: 1.4em;
-		font-weight: bold;
-	}
-
-	.items {
-		padding: 15px 0;
-		border-top: 1px solid rgba($main-bg-color, .1);
-		border-bottom: 1px solid rgba($main-bg-color, .1);
-		margin: 15px 0;
-	}
-
-	#minimizeCart,
-	.items span,
-	.totals span {
-		float: right;
-	}
-}
-
-
-
-// --------------------------------------------------
 // Details Styles
 // --------------------------------------------------
 .details {
@@ -357,6 +321,43 @@ img {
 
 
 // --------------------------------------------------
+// Cart
+// --------------------------------------------------
+.item-cart {
+	min-width: 300px;
+	padding: 10px 40px;
+	background-color: $blue-color;
+	color: $main-bg-color;
+	position: fixed;
+	right: 20px;
+	bottom: 0;
+
+	h3 {
+		font-size: 1.4em;
+		font-weight: bold;
+	}
+
+	.items {
+		padding: 15px 0;
+		border-top: 1px solid rgba($main-bg-color, .1);
+		border-bottom: 1px solid rgba($main-bg-color, .1);
+		margin: 15px 0;
+	}
+
+	#minimizeCart,
+	.items span,
+	.totals span {
+		float: right;
+	}
+
+	#minimizeCart {
+		cursor: pointer;
+	}
+}
+
+
+
+// --------------------------------------------------
 // Responsive Styles
 // --------------------------------------------------
 @media screen and (max-width: 990px) {
@@ -366,5 +367,10 @@ img {
 
 	.column {
 		width: 100%;
+	}
+
+	.item {
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
