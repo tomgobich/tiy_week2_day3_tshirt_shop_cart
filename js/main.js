@@ -1,5 +1,6 @@
 // Glboal Constants / Variables
 const TAX_RATE = 0.065;
+var myStorage = localStorage;
 var minimizeCartStatus = false;
 
 // DOM Selectors

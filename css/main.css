@@ -236,7 +236,7 @@ img {
           width: 100px;
           text-align: right; }
       .item-cart .items div a {
-        color: #CC3C27; }
+        color: rgba(254, 254, 254, 0.6); }
   .item-cart .totals {
     float: right; }
     .item-cart .totals div {
