@@ -23,17 +23,17 @@ var items = [
 	{
 		name: "Save My Trees",
 		color: "Blue",
-		price: 29,
+		price: 29
 	},
 	{
 		name: "Nature Lover",
 		color: "Pink",
-		price: 19,
+		price: 19
 	},
 	{
 		name: "Forrest Walk",
 		color: "Orange",
-		price: 39,
+		price: 39
 	}
 ];
 
@@ -114,7 +114,7 @@ function setCartStatus(itemId, itemObject)
 	var cartItem = {
 		item: itemObject,
 		element: itemId,
-		date: timestamp,
+		date: timestamp
 	};
 
 	// Loop through cart
@@ -152,18 +152,15 @@ function setCartStatus(itemId, itemObject)
 // --------------------------------------------------	
 function editCart()
 {
-	var tax = 0;
-	var amountDue = 0;
-
 	// Prepares HTML for cart items
 	var total = prepareCartItems();
 
 	// Cart total calculations
-	tax 		= total * TAX_RATE;
-	amountDue 	= total + tax;
-	total 		= total.toFixed(2);
-	tax 		= tax.toFixed(2);
-	amountDue	= amountDue.toFixed(2);
+	var tax 		= total * TAX_RATE;
+	var amountDue 	= total + tax;
+	total 			= total.toFixed(2);
+	tax 			= tax.toFixed(2);
+	amountDue		= amountDue.toFixed(2);
 
 	// Price output validation
 	total = validatePriceOutput(total);
@@ -190,11 +187,8 @@ function prepareCartItems()
 	itemList.innerHTML = "";
 
 	// Loop through items in cart - Set appropriate HTML
-	cart.forEach(function(orderItem, index) 
+	cart.forEach(function(orderItem)
 	{
-		var element = orderItem.element;
-		var elementObject = orderItem.item;
-
 		if(orderItem.item == items[0]) 
 		{
 			var itemHTML = 
