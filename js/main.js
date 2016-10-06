@@ -21,20 +21,23 @@ var grandTotal		= document.getElementById('grandTotal');
 var items = [
 	{
 		name: "Save My Trees",
+		color: "Blue",
 		price: 29,
-		inCart: false
 	},
 	{
 		name: "Nature Lover",
+		color: "Pink",
 		price: 19,
-		inCart: false
 	},
 	{
 		name: "Forrest Walk",
+		color: "Orange",
 		price: 39,
-		inCart: false
 	}
 ];
+
+// Array for cart
+var cart = [];
 
 
 
@@ -46,17 +49,17 @@ itemCart.classList.add('hide-element');
 // Event listeners
 cartIconItem1.addEventListener('click', function()
 {
-	updateCart( cartIconItem1, 0);
+	updateCart( cartIconItem1, items[0]);
 });
 
 cartIconItem2.addEventListener('click', function()
 {
-	updateCart( cartIconItem2, 1);
+	updateCart( cartIconItem2, items[1]);
 });
 
 cartIconItem3.addEventListener('click', function()
 {
-	updateCart( cartIconItem3, 2);
+	updateCart( cartIconItem3, items[2]);
 });
 
 // Specific event listener for minimizing the cart
@@ -86,16 +89,16 @@ minimizeCart.addEventListener('click', function()
 // --------------------------------------------------
 // Update Cart - All Cart Functionality Starts Here
 // --------------------------------------------------	
-function updateCart(itemId, itemIndex)
+function updateCart(itemId, itemObject)
 {
 	// Toggles item's status in cart
-	setCartStatus(itemId, itemIndex);
+	setCartStatus(itemId, itemObject);
 
 	// Displays items and total in cart box
-	var itemInCart = editCart();
+	editCart();
 
-	// Toggles carts visibility if all items removed or item added
-	displayCart(itemInCart);
+	// // Toggles carts visibility if all items removed or item added
+	displayCart();
 }
 
 
@@ -103,20 +106,41 @@ function updateCart(itemId, itemIndex)
 // --------------------------------------------------
 // Toggle Item's Status in Cart
 // --------------------------------------------------	
-function setCartStatus(itemId, itemIndex)
+function setCartStatus(itemId, itemObject)
 {
-	// Was the item previously in the cart?
-	if(!items[itemIndex].inCart) 
+	var itemArrayIndex = -1;
+	var timestamp = new Date();
+	var cartItem = {
+		item: itemObject,
+		element: itemId,
+		date: timestamp,
+	};
+
+	// Loop through cart
+	cart.forEach(function(item, index) 
+	{
+		// Is the current itemObject in the cart?
+		if(cart[index].item == itemObject) 
+		{
+			// Yes, mark this index as current
+			itemArrayIndex = index;
+		}
+	});
+
+	// Was the item found in the cart?
+	if(itemArrayIndex == -1) 
 	{
 		// No, add item to cart
 		itemId.classList.add('active');
-		items[itemIndex].inCart = true;
+		cart.push(cartItem);
+		console.log('+ | Item: ' + itemObject.name + ' was added to the cart on ' + timestamp);
 	}
 	else 
 	{
 		// Yes, remove item from cart
+		console.log('- | Item: ' + cart[itemArrayIndex].item.name + ' was removed from the cart on ' + timestamp);
 		itemId.classList.remove('active');
-		items[itemIndex].inCart = false;
+		cart.splice(itemArrayIndex, 1);
 	}
 }
 
@@ -127,36 +151,11 @@ function setCartStatus(itemId, itemIndex)
 // --------------------------------------------------	
 function editCart()
 {
-	var itemInCart = false;
-	var total = 0;
 	var tax = 0;
 	var amountDue = 0;
-	var cartItemCount = 0;
-	var itemsLength = items.length;
-	
-	// Clear item list
-	itemList.innerHTML = "";
 
-	// Loop through items array
-	for(var i = 0; i < itemsLength; i++) 
-	{
-		// Is the item in the cart?
-		if(items[i].inCart) 
-		{
-			// Yes, display item in cart item list
-			var item = "<p>" + items[i].name + "<span>$ " + items[i].price + "</span></p>";
-			itemList.innerHTML += item;
-
-			// Add item total to running total
-			total += items[i].price;
-
-			// Increment cart count by one
-			cartItemCount++;
-
-			// Mark the cart as having at least one item in it
-			itemInCart = true;
-		}
-	}
+	// Prepares HTML for cart items
+	var total = prepareCartItems();
 
 	// Cart total calculations
 	tax 		= total * TAX_RATE;
@@ -165,14 +164,99 @@ function editCart()
 	tax 		= tax.toFixed(2);
 	amountDue	= amountDue.toFixed(2);
 
+	// Price output validation
+	total = validatePriceOutput(total);
+	tax = validatePriceOutput(tax);
+	amountDue = validatePriceOutput(amountDue);
+
 	// Display cart totals
 	cartTotal.innerHTML 	= '$ ' 	+ total;
 	taxTotal.innerHTML 		= '$ ' 	+ tax;
 	grandTotal.innerHTML	= '$ ' 	+ amountDue;
-	cartCount.innerHTML		= '(' 	+ cartItemCount	+ ')'; 
+	cartCount.innerHTML		= '(' 	+ cart.length + ')'; 
+}
 
-	// Return whether at least one item is in the cart
-	return itemInCart;
+
+
+// --------------------------------------------------
+// Prepares Cart Item Listing HTML for Display
+// --------------------------------------------------	
+function prepareCartItems()
+{
+	var total = 0;
+
+	// Clear item list
+	itemList.innerHTML = "";
+
+	// Loop through items in cart - Set appropriate HTML
+	cart.forEach(function(orderItem, index) 
+	{
+		var element = orderItem.element;
+		var elementObject = orderItem.item;
+
+		if(orderItem.item == items[0]) 
+		{
+			var itemHTML = 
+			`
+				<div>
+					<p>${orderItem.item.name}</p>
+					<p>${orderItem.item.color}</p>
+					<p>${moment(orderItem.date).fromNow()}</p>
+					<a href='#' class='remove' onClick="updateCart(cartIconItem1, items[0])">Remove</a>
+					<p>$ ${orderItem.item.price.toFixed(2)}</p>
+				</div>
+			`;
+		}
+		else if(orderItem.item == items[1])
+		{
+			var itemHTML = 
+			`
+				<div>
+					<p>${orderItem.item.name}</p>
+					<p>${orderItem.item.color}</p>
+					<p>${moment(orderItem.date).fromNow()}</p>
+					<a href='#' class='remove' onClick="updateCart(cartIconItem2, items[1])">Remove</a>
+					<p>$ ${orderItem.item.price.toFixed(2)}</p>
+				</div>
+			`;
+		}
+		else if(orderItem.item == items[2])
+		{
+			var itemHTML = 
+			`
+				<div>
+					<p>${orderItem.item.name}</p>
+					<p>${orderItem.item.color}</p>
+					<p>${moment(orderItem.date).fromNow()}</p>
+					<a href='#' class='remove' onClick="updateCart(cartIconItem3, items[2])">Remove</a>
+					<p>$ ${orderItem.item.price.toFixed(2)}</p>
+				</div>
+			`;
+		}
+
+		// Display item details in cart listing
+		itemList.innerHTML += itemHTML;
+
+		// Add item total to running total
+		total += orderItem.item.price;
+	});
+
+	return total;
+}
+
+
+
+// --------------------------------------------------
+// Validates Price Outputs - Ensures all are above 0
+// --------------------------------------------------	
+function validatePriceOutput(price)
+{
+	if(price < 0)
+	{
+		return 0;
+	}
+
+	return price;
 }
 
 
@@ -180,10 +264,10 @@ function editCart()
 // --------------------------------------------------
 // Toggle Cart Visibility | 0 = hidden, 1+ = show
 // --------------------------------------------------
-function displayCart(itemInCart)
+function displayCart()
 {
 	// Are there any items in the cart?
-	if(!itemInCart)
+	if(cart.length < 1)
 	{
 		// No, don't show the cart
 		itemCart.classList.add('hide-element');

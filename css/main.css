@@ -227,6 +227,24 @@ img {
     border-top: 1px solid rgba(254, 254, 254, 0.1);
     border-bottom: 1px solid rgba(254, 254, 254, 0.1);
     margin: 15px 0; }
+    .item-cart .items div {
+      padding: 2px 0; }
+      .item-cart .items div p {
+        width: 150px;
+        display: inline-block; }
+        .item-cart .items div p:last-child {
+          width: 100px;
+          text-align: right; }
+      .item-cart .items div a {
+        color: #CC3C27; }
+  .item-cart .totals {
+    float: right; }
+    .item-cart .totals div {
+      display: block; }
+      .item-cart .totals div p {
+        min-width: 100px;
+        text-align: right;
+        display: inline-block; }
   .item-cart #minimizeCart,
   .item-cart .items span,
   .item-cart .totals span {

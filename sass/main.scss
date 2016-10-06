@@ -342,6 +342,38 @@ img {
 		border-top: 1px solid rgba($main-bg-color, .1);
 		border-bottom: 1px solid rgba($main-bg-color, .1);
 		margin: 15px 0;
+
+		div {
+			padding: 2px 0;
+
+			p {
+				width: 150px;
+				display: inline-block;
+
+				&:last-child {
+					width: 100px;
+					text-align: right;
+				}
+			}
+
+			a {
+				color: $warning;
+			}
+		}
+	}
+
+	.totals {
+		float: right;
+
+		div {
+			display: block;
+
+			p {
+				min-width: 100px;
+				text-align: right;
+				display: inline-block;
+			}
+		}
 	}
 
 	#minimizeCart,
