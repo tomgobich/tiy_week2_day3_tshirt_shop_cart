@@ -21,6 +21,7 @@ var grandTotal		= document.getElementById('grandTotal');
 
 
 // Global Arrays
+var cart = [];
 var items = [
 	{
 		name: "Save My Trees",
@@ -39,8 +40,6 @@ var items = [
 	}
 ];
 
-var cart = [];
-
 
 
 // Hide car by default
@@ -53,6 +52,11 @@ if(JSON.parse(localStorage.getItem('cart')))
 {
 	loadLocalStorage();
 }
+
+
+
+// Interval based call to reload cart item listing, thus updating cart times
+setInterval(prepareCartItems, 10000);
 
 
 
@@ -179,16 +183,16 @@ function setCartStatus(itemId, itemObject, timestamp)
 	});
 
 	// Was the item found in the cart?
-	if(itemArrayIndex === -1) 
+	if(itemArrayIndex === -1 ) 
 	{
 		// No, add item to cart
 		itemId.classList.add('active');
 		cart.push({item: itemObject, element: itemId, date: timestamp});
 		console.log('+ | Item: ' + itemObject.name + ' was added to the cart on ' + timestamp);
 	}
-	else 
+	else
 	{
-		// Yes, remove item from cart
+		// No, remove item from cart
 		console.log('- | Item: ' + cart[itemArrayIndex].item.name + ' was removed from the cart on ' + timestamp);
 		itemId.classList.remove('active');
 		cart.splice(itemArrayIndex, 1);
