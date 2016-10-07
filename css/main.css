@@ -230,6 +230,9 @@ img {
     margin: 15px 0; }
     .item-cart .items div {
       padding: 2px 0; }
+      .item-cart .items div.titles {
+        font-weight: bold;
+        padding-bottom: 10px; }
       .item-cart .items div p {
         width: 130px;
         display: inline-block; }

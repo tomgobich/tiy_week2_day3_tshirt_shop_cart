@@ -241,7 +241,17 @@ function prepareCartItems()
 	var total = 0;
 
 	// Clear item list
-	itemList.innerHTML = "";
+	// Add 'Remove All' feature at end of cart list
+	itemList.innerHTML = 
+	`
+		<div class="titles">
+			<p class="item-remove"></p>
+			<p class="item-name">Name</p>
+			<p class="item-color">Color</p>
+			<p class="item-date">Time Since Added</p>
+			<p class="item-price">Price</p>
+		</div>
+	`;
 
 	// Loop through items in cart - Set appropriate HTML
 	cart.forEach(function(orderItem)
