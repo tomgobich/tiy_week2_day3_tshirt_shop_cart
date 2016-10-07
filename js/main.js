@@ -257,8 +257,8 @@ function prepareCartItems()
 	{
 		var itemDetails = getCurrentItem(orderItem);
 		var itemElement = itemDetails[2];
-		var itemInfo = itemDetails[3];
-		var itemHTML = 
+		var itemInfo 	= itemDetails[3];
+		var itemHTML 	= 
 		`
 			<div>
 				<p class="item-remove"><a href='#' class='remove' onClick="updateCart(${itemElement}, ${itemInfo})">X</a></p>
