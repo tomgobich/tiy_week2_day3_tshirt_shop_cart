@@ -3,6 +3,8 @@ const TAX_RATE = 0.065;
 var myStorage = localStorage;
 var minimizeCartStatus = false;
 
+
+
 // DOM Selectors
 var cartIconItem1	= document.getElementById('cartIconItem1');
 var cartIconItem2	= document.getElementById('cartIconItem2');
@@ -18,7 +20,7 @@ var grandTotal		= document.getElementById('grandTotal');
 
 
 
-// Array of shop items
+// Global Arrays
 var items = [
 	{
 		name: "Save My Trees",
@@ -37,7 +39,6 @@ var items = [
 	}
 ];
 
-// Array for cart
 var cart = [];
 
 
