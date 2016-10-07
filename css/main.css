@@ -240,9 +240,10 @@ img {
           width: 25px; }
         .item-cart .items div p.item-color {
           width: 120px; }
-        .item-cart .items div p:last-child {
+        .item-cart .items div p.item-price {
           width: 100px;
-          text-align: right; }
+          text-align: right;
+          float: right; }
         .item-cart .items div p.remove-all {
           width: 100px;
           padding: 10px 0 0 0;

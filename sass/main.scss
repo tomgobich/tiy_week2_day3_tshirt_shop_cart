@@ -364,9 +364,10 @@ img {
 					width: 120px;
 				}
 
-				&:last-child {
+				&.item-price {
 					width: 100px;
 					text-align: right;
+					float: right;
 				}
 
 				&.remove-all {
