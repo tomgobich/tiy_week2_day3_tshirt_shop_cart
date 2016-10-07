@@ -47,6 +47,7 @@ itemCart.classList.add('hide-element');
 
 
 
+// If local storage for cart exists, load local storage
 if(JSON.parse(localStorage.getItem('cart')))
 {
 	loadLocalData();
@@ -94,16 +95,22 @@ minimizeCart.addEventListener('click', function()
 
 
 
+// --------------------------------------------------
+// Load data from local storage
+// --------------------------------------------------
 function loadLocalData()
 {
+	// Load locally saved cart into variable
 	var localCart = JSON.parse(localStorage.getItem('cart'));
 
+	// Loop through local cart
 	localCart.forEach(function(orderItem, index)
 	{
 		var itemDetails = getCurrentItem(orderItem);
 		var itemElement = itemDetails[0];
 		var itemInfo 	= itemDetails[1];
 
+		// Update current state cart to reflect local cart
 		updateCart(itemElement, itemInfo, orderItem.date);
 	});
 }
@@ -138,6 +145,7 @@ function setCartStatus(itemId, itemObject, timestamp)
 		timestamp = new Date();
 	}
 
+	// Groups cart info into object
 	var cartItem = {
 		item: itemObject,
 		element: itemId,
@@ -172,11 +180,8 @@ function setCartStatus(itemId, itemObject, timestamp)
 		cart.splice(itemArrayIndex, 1);
 	}
 
-	//localStorage.setItem( 'car', JSON.stringify(car) );
-	//console.log( JSON.parse( localStorage.getItem( 'car' ) ) );
-
+	// Save new cart in local storage
 	localStorage.setItem('cart', JSON.stringify(cart));
-	console.log(JSON.parse(localStorage.getItem('cart')));
 }
 
 
@@ -244,6 +249,7 @@ function prepareCartItems()
 		total += orderItem.item.price;
 	});
 
+	// Add 'Remove All' feature at end of cart list
 	itemList.innerHTML += 
 	`
 		<div>
@@ -258,11 +264,13 @@ function prepareCartItems()
 
 // --------------------------------------------------
 // Validates Price Outputs - Ensures all are above 0
-// --------------------------------------------------	
+// --------------------------------------------------
 function validatePriceOutput(price)
 {
+	// Price somehow less than zero?
 	if(price < 0)
 	{
+		// Set as zero
 		return 0;
 	}
 
@@ -271,34 +279,49 @@ function validatePriceOutput(price)
 
 
 
+// --------------------------------------------------
+// Clears all local storage and updates cart
+// --------------------------------------------------
 function clearLocalStorage()
 {
+	// Clear the local storage
 	localStorage.clear();
 
+	// Repeat until the cart is empty
 	while(cart.length > 0)
 	{
+		// Remove first item in cart array
 		updateCart(cart[0].element, cart[0].item);
 	}
 }
 
 
 
+// --------------------------------------------------
+// Gets the current item's details
+// --------------------------------------------------
 function getCurrentItem(orderItem)
 {
 	var itemDetails = [];
 
+	// Is it the first item in the item array?
 	if(orderItem.item == items[0] || orderItem.item.name == items[0].name) 
 	{
+		// Yes, mark this one as active
 		itemDetails = [cartIconItem1, items[0], "cartIconItem1", "items[0]"];
 		return itemDetails;
 	}
+	// Is it the second item in the item array?
 	else if(orderItem.item == items[1] || orderItem.item.name == items[1].name)
 	{
+		// Yes, mark this one as active
 		itemDetails = [cartIconItem2, items[1], "cartIconItem2", "items[1]"];
 		return itemDetails;
 	}
+	// Is it the third item in the item array?
 	else if(orderItem.item == items[2] || orderItem.item.name == items[2].name)
 	{
+		// Yes, mark this one as active
 		itemDetails = [cartIconItem3, items[2], "cartIconItem3", "items[2]"];
 		return itemDetails;
 	}
