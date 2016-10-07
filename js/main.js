@@ -51,7 +51,7 @@ itemCart.classList.add('hide-element');
 // If local storage for cart exists, load local storage
 if(JSON.parse(localStorage.getItem('cart')))
 {
-	loadLocalData();
+	loadLocalStorage();
 }
 
 
@@ -99,7 +99,7 @@ minimizeCart.addEventListener('click', function()
 // --------------------------------------------------
 // Load data from local storage
 // --------------------------------------------------
-function loadLocalData()
+function loadLocalStorage()
 {
 	// Load locally saved cart into variable
 	var localCart = JSON.parse(localStorage.getItem('cart'));
@@ -114,6 +114,24 @@ function loadLocalData()
 		// Update current state cart to reflect local cart
 		updateCart(itemElement, itemInfo, orderItem.date);
 	});
+}
+
+
+
+// --------------------------------------------------
+// Clears all local storage and updates cart
+// --------------------------------------------------
+function clearLocalStorage()
+{
+	// Clear the local storage
+	localStorage.clear();
+
+	// Repeat until the cart is empty
+	while(cart.length > 0)
+	{
+		// Remove first item in cart array
+		updateCart(cart[0].element, cart[0].item);
+	}
 }
 
 
@@ -149,14 +167,6 @@ function setCartStatus(itemId, itemObject, timestamp)
 		timestamp = new Date();
 	}
 
-	// Groups cart info into object
-	var cartItem = 
-	{
-		item: itemObject,
-		element: itemId,
-		date: timestamp
-	};
-
 	// Loop through cart
 	cart.forEach(function(orderItem, index) 
 	{
@@ -173,7 +183,7 @@ function setCartStatus(itemId, itemObject, timestamp)
 	{
 		// No, add item to cart
 		itemId.classList.add('active');
-		cart.push(cartItem);
+		cart.push({item: itemObject, element: itemId, date: timestamp});
 		console.log('+ | Item: ' + itemObject.name + ' was added to the cart on ' + timestamp);
 	}
 	else 
@@ -267,41 +277,6 @@ function prepareCartItems()
 
 
 // --------------------------------------------------
-// Validates Price Outputs - Ensures all are above 0
-// --------------------------------------------------
-function validatePriceOutput(price)
-{
-	// Price somehow less than zero?
-	if(price < 0)
-	{
-		// Set as zero
-		return 0;
-	}
-
-	return price;
-}
-
-
-
-// --------------------------------------------------
-// Clears all local storage and updates cart
-// --------------------------------------------------
-function clearLocalStorage()
-{
-	// Clear the local storage
-	localStorage.clear();
-
-	// Repeat until the cart is empty
-	while(cart.length > 0)
-	{
-		// Remove first item in cart array
-		updateCart(cart[0].element, cart[0].item);
-	}
-}
-
-
-
-// --------------------------------------------------
 // Gets the current item's details
 // --------------------------------------------------
 function getCurrentItem(orderItem)
@@ -329,6 +304,23 @@ function getCurrentItem(orderItem)
 		itemDetails = [cartIconItem3, items[2], "cartIconItem3", "items[2]"];
 		return itemDetails;
 	}
+}
+
+
+
+// --------------------------------------------------
+// Validates Price Outputs - Ensures all are above 0
+// --------------------------------------------------
+function validatePriceOutput(price)
+{
+	// Price somehow less than zero?
+	if(price < 0)
+	{
+		// Set as zero
+		return 0;
+	}
+
+	return price;
 }
 
 
