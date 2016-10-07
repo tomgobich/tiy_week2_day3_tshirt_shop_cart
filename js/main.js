@@ -240,8 +240,7 @@ function prepareCartItems()
 {
 	var total = 0;
 
-	// Clear item list
-	// Add 'Remove All' feature at end of cart list
+	// Clears previous cart listing and adds title bar to cart
 	itemList.innerHTML = 
 	`
 		<div class="titles">
