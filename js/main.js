@@ -141,12 +141,16 @@ function setCartStatus(itemId, itemObject, timestamp)
 {
 	var itemArrayIndex = -1;
 	
-	if(timestamp === undefined) {
+	// Is there an existing timestamp?
+	if(timestamp === undefined) 
+	{
+		// No, set timestamp to now
 		timestamp = new Date();
 	}
 
 	// Groups cart info into object
-	var cartItem = {
+	var cartItem = 
+	{
 		item: itemObject,
 		element: itemId,
 		date: timestamp
