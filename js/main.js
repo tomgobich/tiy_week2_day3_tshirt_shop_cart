@@ -47,6 +47,13 @@ itemCart.classList.add('hide-element');
 
 
 
+if(JSON.parse(localStorage.getItem('cart')))
+{
+	loadLocalData();
+}
+
+
+
 // Event listeners
 cartIconItem1.addEventListener('click', function()
 {
@@ -87,13 +94,31 @@ minimizeCart.addEventListener('click', function()
 
 
 
+function loadLocalData()
+{
+	var localCart = JSON.parse(localStorage.getItem('cart'));
+
+	localCart.forEach(function(orderItem, index)
+	{
+		console.log('Line 100');
+		console.log(orderItem);
+		var itemDetails = getCurrentItem(orderItem);
+		var itemElement = itemDetails[0];
+		var itemInfo 	= itemDetails[1];
+
+		updateCart(itemElement, itemInfo, orderItem.date);
+	});
+}
+
+
+
 // --------------------------------------------------
 // Update Cart - All Cart Functionality Starts Here
 // --------------------------------------------------	
-function updateCart(itemId, itemObject)
+function updateCart(itemId, itemObject, timestamp)
 {
 	// Toggles item's status in cart
-	setCartStatus(itemId, itemObject);
+	setCartStatus(itemId, itemObject, timestamp);
 
 	// Displays items and total in cart box
 	editCart();
@@ -107,21 +132,24 @@ function updateCart(itemId, itemObject)
 // --------------------------------------------------
 // Toggle Item's Status in Cart
 // --------------------------------------------------	
-function setCartStatus(itemId, itemObject)
+function setCartStatus(itemId, itemObject, timestamp)
 {
 	var itemArrayIndex = -1;
-	var timestamp = new Date();
 	var cartItem = {
 		item: itemObject,
 		element: itemId,
 		date: timestamp
 	};
 
+	if(timestamp == "") {
+		timestamp = new Date();
+	}
+
 	// Loop through cart
-	cart.forEach(function(item, index) 
+	cart.forEach(function(orderItem, index) 
 	{
 		// Is the current itemObject in the cart?
-		if(cart[index].item == itemObject) 
+		if(orderItem.item === itemObject) 
 		{
 			// Yes, mark this index as current
 			itemArrayIndex = index;
@@ -129,11 +157,12 @@ function setCartStatus(itemId, itemObject)
 	});
 
 	// Was the item found in the cart?
-	if(itemArrayIndex == -1) 
+	if(itemArrayIndex === -1) 
 	{
 		// No, add item to cart
 		itemId.classList.add('active');
 		cart.push(cartItem);
+
 		console.log('+ | Item: ' + itemObject.name + ' was added to the cart on ' + timestamp);
 	}
 	else 
@@ -143,6 +172,12 @@ function setCartStatus(itemId, itemObject)
 		itemId.classList.remove('active');
 		cart.splice(itemArrayIndex, 1);
 	}
+
+	//localStorage.setItem( 'car', JSON.stringify(car) );
+	//console.log( JSON.parse( localStorage.getItem( 'car' ) ) );
+
+	localStorage.setItem('cart', JSON.stringify(cart));
+	console.log(JSON.parse(localStorage.getItem('cart')));
 }
 
 
@@ -163,9 +198,9 @@ function editCart()
 	amountDue		= amountDue.toFixed(2);
 
 	// Price output validation
-	total = validatePriceOutput(total);
-	tax = validatePriceOutput(tax);
-	amountDue = validatePriceOutput(amountDue);
+	total 		= validatePriceOutput(total);
+	tax 		= validatePriceOutput(tax);
+	amountDue 	= validatePriceOutput(amountDue);
 
 	// Display cart totals
 	cartTotal.innerHTML 	= '$ ' 	+ total;
@@ -189,45 +224,19 @@ function prepareCartItems()
 	// Loop through items in cart - Set appropriate HTML
 	cart.forEach(function(orderItem)
 	{
-		if(orderItem.item == items[0]) 
-		{
-			var itemHTML = 
-			`
-				<div>
-					<p>${orderItem.item.name}</p>
-					<p>${orderItem.item.color}</p>
-					<p>${moment(orderItem.date).fromNow()}</p>
-					<a href='#' class='remove' onClick="updateCart(cartIconItem1, items[0])">Remove</a>
-					<p>$ ${orderItem.item.price.toFixed(2)}</p>
-				</div>
-			`;
-		}
-		else if(orderItem.item == items[1])
-		{
-			var itemHTML = 
-			`
-				<div>
-					<p>${orderItem.item.name}</p>
-					<p>${orderItem.item.color}</p>
-					<p>${moment(orderItem.date).fromNow()}</p>
-					<a href='#' class='remove' onClick="updateCart(cartIconItem2, items[1])">Remove</a>
-					<p>$ ${orderItem.item.price.toFixed(2)}</p>
-				</div>
-			`;
-		}
-		else if(orderItem.item == items[2])
-		{
-			var itemHTML = 
-			`
-				<div>
-					<p>${orderItem.item.name}</p>
-					<p>${orderItem.item.color}</p>
-					<p>${moment(orderItem.date).fromNow()}</p>
-					<a href='#' class='remove' onClick="updateCart(cartIconItem3, items[2])">Remove</a>
-					<p>$ ${orderItem.item.price.toFixed(2)}</p>
-				</div>
-			`;
-		}
+		var itemDetails = getCurrentItem(orderItem);
+		var itemElement = itemDetails[2];
+		var itemInfo = itemDetails[3];
+		var itemHTML = 
+		`
+			<div>
+				<p>${orderItem.item.name}</p>
+				<p>${orderItem.item.color}</p>
+				<p>${moment(orderItem.date).fromNow()}</p>
+				<a href='#' class='remove' onClick="updateCart(${itemElement}, ${itemInfo})">Remove</a>
+				<p>$ ${orderItem.item.price.toFixed(2)}</p>
+			</div>
+		`;
 
 		// Display item details in cart listing
 		itemList.innerHTML += itemHTML;
@@ -252,6 +261,29 @@ function validatePriceOutput(price)
 	}
 
 	return price;
+}
+
+
+
+function getCurrentItem(orderItem)
+{
+	var itemDetails = [];
+
+	if(orderItem.item == items[0] || orderItem.item.name == items[0].name) 
+	{
+		itemDetails = [cartIconItem1, items[0], "cartIconItem1", "items[0]"];
+		return itemDetails;
+	}
+	else if(orderItem.item == items[1] || orderItem.item.name == items[1].name)
+	{
+		itemDetails = [cartIconItem2, items[1], "cartIconItem2", "items[1]"];
+		return itemDetails;
+	}
+	else if(orderItem.item == items[2] || orderItem.item.name == items[2].name)
+	{
+		itemDetails = [cartIconItem3, items[2], "cartIconItem3", "items[2]"];
+		return itemDetails;
+	}
 }
 
 
