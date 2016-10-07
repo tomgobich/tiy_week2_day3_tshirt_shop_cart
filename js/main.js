@@ -248,11 +248,11 @@ function prepareCartItems()
 		var itemHTML = 
 		`
 			<div>
-				<p>${orderItem.item.name}</p>
-				<p>${orderItem.item.color}</p>
-				<p>${moment(orderItem.date).fromNow()}</p>
-				<p><a href='#' class='remove' onClick="updateCart(${itemElement}, ${itemInfo})">Remove</a></p>
-				<p>$ ${orderItem.item.price.toFixed(2)}</p>
+				<p class="item-remove"><a href='#' class='remove' onClick="updateCart(${itemElement}, ${itemInfo})">X</a></p>
+				<p class="item-name">${orderItem.item.name}</p>
+				<p class="item-color">${orderItem.item.color}</p>
+				<p class="item-date">${moment(orderItem.date).fromNow()}</p>
+				<p class="item-price">$ ${orderItem.item.price.toFixed(2)}</p>
 			</div>
 		`;
 
@@ -267,7 +267,7 @@ function prepareCartItems()
 	itemList.innerHTML += 
 	`
 		<div>
-			<p class='remove-all'><a href='#' onClick="clearLocalStorage()">Remove All</a></p>
+			<p class='remove-all'><a href='#' onClick="clearLocalStorage()">X (All)</a></p>
 		</div>
 	`;
 
