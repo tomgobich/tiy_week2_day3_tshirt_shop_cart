@@ -127,15 +127,15 @@ function loadLocalStorage()
 // --------------------------------------------------
 function clearLocalStorage()
 {
-	// Clear the local storage
-	localStorage.clear();
-
 	// Repeat until the cart is empty
 	while(cart.length > 0)
 	{
 		// Remove first item in cart array
 		updateCart(cart[0].element, cart[0].item);
 	}
+
+	// Clear the local storage
+	localStorage.clear();
 }
 
 
