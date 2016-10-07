@@ -129,7 +129,7 @@ function updateCart(itemId, itemObject, timestamp)
 	// Displays items and total in cart box
 	editCart();
 
-	// // Toggles carts visibility if all items removed or item added
+	// Toggles carts visibility if all items removed or item added
 	displayCart();
 }
 
@@ -174,7 +174,6 @@ function setCartStatus(itemId, itemObject, timestamp)
 		// No, add item to cart
 		itemId.classList.add('active');
 		cart.push(cartItem);
-
 		console.log('+ | Item: ' + itemObject.name + ' was added to the cart on ' + timestamp);
 	}
 	else 
