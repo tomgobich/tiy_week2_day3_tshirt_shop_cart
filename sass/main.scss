@@ -347,18 +347,33 @@ img {
 			padding: 2px 0;
 
 			p {
-				width: 150px;
+				width: 200px;
 				display: inline-block;
+
+				&:nth-child(2),
+				&:nth-child(4) {
+					width: 100px;
+				}
 
 				&:last-child {
 					width: 100px;
 					text-align: right;
+				}
+
+				&.remove-all {
+					width: 100px;
+				    padding: 10px 0 0 0;
+				    display: block;
+				    position: relative;
+				    text-align: left;
+				    left: 512px;
 				}
 			}
 
 			a {
 				color: rgba($main-bg-color, 0.6);
 			}
+
 		}
 	}
 

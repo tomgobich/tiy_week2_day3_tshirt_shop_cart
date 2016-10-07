@@ -230,11 +230,20 @@ img {
     .item-cart .items div {
       padding: 2px 0; }
       .item-cart .items div p {
-        width: 150px;
+        width: 200px;
         display: inline-block; }
+        .item-cart .items div p:nth-child(2), .item-cart .items div p:nth-child(4) {
+          width: 100px; }
         .item-cart .items div p:last-child {
           width: 100px;
           text-align: right; }
+        .item-cart .items div p.remove-all {
+          width: 100px;
+          padding: 10px 0 0 0;
+          display: block;
+          position: relative;
+          text-align: left;
+          left: 512px; }
       .item-cart .items div a {
         color: rgba(254, 254, 254, 0.6); }
   .item-cart .totals {

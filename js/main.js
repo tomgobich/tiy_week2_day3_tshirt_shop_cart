@@ -100,8 +100,6 @@ function loadLocalData()
 
 	localCart.forEach(function(orderItem, index)
 	{
-		console.log('Line 100');
-		console.log(orderItem);
 		var itemDetails = getCurrentItem(orderItem);
 		var itemElement = itemDetails[0];
 		var itemInfo 	= itemDetails[1];
@@ -135,15 +133,16 @@ function updateCart(itemId, itemObject, timestamp)
 function setCartStatus(itemId, itemObject, timestamp)
 {
 	var itemArrayIndex = -1;
+	
+	if(timestamp === undefined) {
+		timestamp = new Date();
+	}
+
 	var cartItem = {
 		item: itemObject,
 		element: itemId,
 		date: timestamp
 	};
-
-	if(timestamp == "") {
-		timestamp = new Date();
-	}
 
 	// Loop through cart
 	cart.forEach(function(orderItem, index) 
@@ -233,7 +232,7 @@ function prepareCartItems()
 				<p>${orderItem.item.name}</p>
 				<p>${orderItem.item.color}</p>
 				<p>${moment(orderItem.date).fromNow()}</p>
-				<a href='#' class='remove' onClick="updateCart(${itemElement}, ${itemInfo})">Remove</a>
+				<p><a href='#' class='remove' onClick="updateCart(${itemElement}, ${itemInfo})">Remove</a></p>
 				<p>$ ${orderItem.item.price.toFixed(2)}</p>
 			</div>
 		`;
@@ -244,6 +243,13 @@ function prepareCartItems()
 		// Add item total to running total
 		total += orderItem.item.price;
 	});
+
+	itemList.innerHTML += 
+	`
+		<div>
+			<p class='remove-all'><a href='#' onClick="clearLocalStorage()">Remove All</a></p>
+		</div>
+	`;
 
 	return total;
 }
@@ -261,6 +267,18 @@ function validatePriceOutput(price)
 	}
 
 	return price;
+}
+
+
+
+function clearLocalStorage()
+{
+	localStorage.clear();
+
+	while(cart.length > 0)
+	{
+		updateCart(cart[0].element, cart[0].item);
+	}
 }
 
 
